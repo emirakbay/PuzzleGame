@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Board : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class Board : MonoBehaviour
 
     public GameObject[] squares;
 
-    private BackgroundTile[,] allTiles;
+    //private BackgroundTile[,] allTiles;
 
     public GameObject[,] allSquares;
 
@@ -22,6 +23,9 @@ public class Board : MonoBehaviour
 
     public int Width { get => width; set => width = value; }
     public int Height { get => height; set => height = value; }
+
+
+    public Dictionary<SQUARE_COLOR, List<List<Square>>> dict = new Dictionary<SQUARE_COLOR, List<List<Square>>>();
 
     private void Awake()
     {
@@ -34,7 +38,7 @@ public class Board : MonoBehaviour
             instance = this;
         }
 
-        allTiles = new BackgroundTile[Width, Height];
+        //allTiles = new BackgroundTile[Width, Height];
         allSquares = new GameObject[Width, Height];
         SetUp();
     }
@@ -64,22 +68,56 @@ public class Board : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            var arr = FindConnectedGroups(SQUARE_COLOR.RED);
-            foreach (var item in arr)
+            List<List<Square>> redSquares = FindRedSquareBlocks();
+            dict.Add(SQUARE_COLOR.RED, redSquares);
+
+            List<List<Square>> blueSquares = FindBlueSquareBlocks();
+            dict.Add(SQUARE_COLOR.BLUE, blueSquares);
+
+            List<List<Square>> greenSquares = FindGreenSquareBlocks();
+            dict.Add(SQUARE_COLOR.GREEN, greenSquares);
+
+            List<List<Square>> yellowSquares = FindYellowSquareBlocks();
+            dict.Add(SQUARE_COLOR.YELLOW, yellowSquares);
+
+            List<List<Square>> magentaSquares = FindMagentaSquareBlocks();
+            dict.Add(SQUARE_COLOR.MAGENTA, magentaSquares);
+
+            var red = dict[SQUARE_COLOR.RED];
+            PrintSquareBlockList(red);
+
+            var green = dict[SQUARE_COLOR.GREEN];
+            PrintSquareBlockList(green);
+
+            var blue = dict[SQUARE_COLOR.BLUE];
+            PrintSquareBlockList(blue);
+
+            var magenta = dict[SQUARE_COLOR.MAGENTA];
+            PrintSquareBlockList(magenta);
+
+            var yellow = dict[SQUARE_COLOR.YELLOW];
+            PrintSquareBlockList(yellow);
+        }
+    }
+
+    private void PrintSquareBlockList(List<List<Square>> squareBlocks)
+    {
+        foreach (var blocks in squareBlocks)
+        {
+            foreach (var square in blocks)
             {
-                foreach (var item2 in item)
-                {
-                    print(item2);
-                }
+                SpriteRenderer mySprite = square.GetComponent<SpriteRenderer>();
+                mySprite.color = new Color(mySprite.color.r, mySprite.color.g, mySprite.color.b, .05f);
             }
         }
     }
+
 
     public List<List<Square>> FindConnectedGroups(SQUARE_COLOR matchColor)
     {
         var groups = new List<List<Square>>();
 
-        // Search the world grid for pairs of connected blocks.
+        // Search the board grid for pairs of connected blocks.
         for (int x = 0; x < Width; x++)
         {
             for (int y = 0; y < Height; y++)
@@ -99,9 +137,7 @@ public class Board : MonoBehaviour
                     // so by checking just these two directions we don't exclude any.
                     if (x > 0)
                     {
-                        //var neighbor = world.GetBlock(x - 1, y);
                         var neighbour = allSquares[x - 1, y];
-
                         if (neighbour.GetComponent<Square>().color == block.GetComponent<Square>().color)
                         {
                             var group = new List<Square>();
@@ -173,5 +209,30 @@ public class Board : MonoBehaviour
             if (neighbor.GetComponent<Square>().color == block.color && neighbor.GetComponent<Square>().visited == false)
                 PopulateGroup(group, neighbor.GetComponent<Square>());
         }
+    }
+
+    private List<List<Square>> FindRedSquareBlocks()
+    {
+        return FindConnectedGroups(SQUARE_COLOR.RED);
+    }
+
+    private List<List<Square>> FindBlueSquareBlocks()
+    {
+        return FindConnectedGroups(SQUARE_COLOR.BLUE);
+    }
+
+    private List<List<Square>> FindGreenSquareBlocks()
+    {
+        return FindConnectedGroups(SQUARE_COLOR.GREEN);
+    }
+
+    private List<List<Square>> FindYellowSquareBlocks()
+    {
+        return FindConnectedGroups(SQUARE_COLOR.YELLOW);
+    }
+
+    private List<List<Square>> FindMagentaSquareBlocks()
+    {
+        return FindConnectedGroups(SQUARE_COLOR.MAGENTA);
     }
 }
