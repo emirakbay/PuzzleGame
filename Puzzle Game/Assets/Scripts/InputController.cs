@@ -2,10 +2,6 @@ using UnityEngine;
 
 public class InputController : MonoBehaviour
 {
-    private void Start()
-    {
-    }
-
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -14,7 +10,7 @@ public class InputController : MonoBehaviour
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
             if (hit.collider != null)
             {
-                print(hit.collider.gameObject.name);
+                hit.collider.gameObject.GetComponent<Square>().CheckMatch();
             }
         }
     }

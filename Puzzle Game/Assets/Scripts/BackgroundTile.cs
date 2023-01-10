@@ -5,11 +5,6 @@ public class BackgroundTile : MonoBehaviour
 {
     public GameObject[] squares;
 
-    private void Start()
-    {
-        Initialize();
-    }
-
     private void Initialize()
     {
         int squareIndex = Random.Range(0, squares.Length);
