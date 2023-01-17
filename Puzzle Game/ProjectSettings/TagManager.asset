@@ -9,6 +9,7 @@ TagManager:
   - Magenta
   - Yellow
   - Red
+  - BlockFinder
   layers:
   - Default
   - TransparentFX

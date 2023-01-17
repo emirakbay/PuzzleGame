@@ -10,7 +10,7 @@ public class InputController : MonoBehaviour
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray, Mathf.Infinity);
             if (hit.collider != null)
             {
-                hit.collider.gameObject.GetComponent<Square>().CheckMatch();
+                print(hit.collider.gameObject);
             }
         }
     }

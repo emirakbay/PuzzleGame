@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2445544688411386579}
   - component: {fileID: 5635764098640980457}
-  - component: {fileID: 6678606137758756729}
   m_Layer: 0
   m_Name: Tile Background
   m_TagString: Untagged
@@ -83,21 +82,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6678606137758756729
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3491343425299959124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 357c052c774a80149818da8e29ab6704, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  squares:
-  - {fileID: 7255133877691150660, guid: a270f6e0d7654ba4b8fae5f7eff88e4e, type: 3}
-  - {fileID: 5120197377298666856, guid: dae8453d884f3a647b77319ff86bba9b, type: 3}
-  - {fileID: 4201974052932669908, guid: 239948f571af7c94d84bf46eb91db12e, type: 3}
-  - {fileID: 8202521653002278257, guid: 1d27accd39bceb849ac3503247e7d5e1, type: 3}
-  - {fileID: 7666534048810395794, guid: 1014f6a432dd10c47af31a1f59bfe66a, type: 3}
